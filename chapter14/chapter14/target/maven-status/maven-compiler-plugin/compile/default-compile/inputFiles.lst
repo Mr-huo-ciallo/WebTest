@@ -1,0 +1,10 @@
+/Users/guodi/chapter14/src/main/java/com/my/config/SpringConfig.java
+/Users/guodi/chapter14/src/main/java/com/my/config/JdbcConfig.java
+/Users/guodi/chapter14/src/main/java/com/my/domain/Book.java
+/Users/guodi/chapter14/src/main/java/com/my/config/MyBatisConfig.java
+/Users/guodi/chapter14/src/main/java/com/my/dao/BookMapper.java
+/Users/guodi/chapter14/src/main/java/com/my/service/BookService.java
+/Users/guodi/chapter14/src/main/java/com/my/config/SpringMvcConfig.java
+/Users/guodi/chapter14/src/main/java/com/my/controller/BookController.java
+/Users/guodi/chapter14/src/main/java/com/my/service/impl/BookServiceImpl.java
+/Users/guodi/chapter14/src/main/java/com/my/config/ServletContainersInitConfig.java
