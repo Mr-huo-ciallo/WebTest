@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.SubmissionMapper">
+    <resultMap id="submissionMap" type="com.my.domain.Submission">
+        <id property="id" column="id" />
+        <result property="examId" column="exam_id" />
+        <result property="studentId" column="student_id" />
+        <result property="submittedAt" column="submitted_at" />
+        <result property="totalScore" column="total_score" />
+    </resultMap>
+
+    <select id="findById" parameterType="int" resultMap="submissionMap">
+        select id, exam_id, student_id, submitted_at, total_score
+        from exam_submission
+        where id = #{id}
+    </select>
+
+    <select id="findByStudent" parameterType="int" resultMap="submissionMap">
+        select id, exam_id, student_id, submitted_at, total_score
+        from exam_submission
+        where student_id = #{studentId}
+        order by submitted_at desc
+    </select>
+
+    <insert id="insertSubmission" parameterType="com.my.domain.Submission" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_submission (exam_id, student_id, submitted_at, total_score)
+        values (#{examId}, #{studentId}, #{submittedAt}, #{totalScore})
+    </insert>
+</mapper>

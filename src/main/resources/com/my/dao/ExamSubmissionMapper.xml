@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.ExamSubmissionMapper">
+    <resultMap id="examSubmissionMap" type="com.my.domain.ExamSubmission">
+        <id property="id" column="id" />
+        <result property="examId" column="exam_id" />
+        <result property="userId" column="user_id" />
+        <result property="score" column="score" />
+        <result property="completedTime" column="completed_time" />
+        <result property="startTime" column="start_time" />
+    </resultMap>
+
+    <insert id="insertSubmission" parameterType="com.my.domain.ExamSubmission" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_submission (exam_id, user_id, score, completed_time, start_time)
+        values (#{examId}, #{userId}, #{score}, #{completedTime}, #{startTime})
+    </insert>
+
+    <select id="findByExamId" parameterType="int" resultMap="examSubmissionMap">
+        select id, exam_id, user_id, score, completed_time, start_time
+        from exam_submission
+        where exam_id = #{examId}
+        order by completed_time desc
+    </select>
+
+    <select id="findByUserId" parameterType="int" resultMap="examSubmissionMap">
+        select id, exam_id, user_id, score, completed_time, start_time
+        from exam_submission
+        where user_id = #{userId}
+        order by completed_time desc
+    </select>
+
+    <select id="findByExamAndUser" parameterType="map" resultMap="examSubmissionMap">
+        select id, exam_id, user_id, score, completed_time, start_time
+        from exam_submission
+        where exam_id = #{examId} and user_id = #{userId}
+    </select>
+</mapper>

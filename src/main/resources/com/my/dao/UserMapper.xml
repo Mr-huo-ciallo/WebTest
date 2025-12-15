@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.UserMapper">
+    <resultMap id="userMap" type="com.my.domain.User">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="fullName" column="full_name" />
+        <result property="role" column="role" javaType="com.my.domain.UserRole" />
+    </resultMap>
+
+    <select id="findByUsername" parameterType="string" resultMap="userMap">
+        select id, username, password, full_name, role
+        from exam_user
+        where username = #{username}
+    </select>
+
+    <select id="findByRole" parameterType="string" resultMap="userMap">
+        select id, username, password, full_name, role
+        from exam_user
+        where role = #{role}
+    </select>
+
+    <insert id="insertUser" parameterType="com.my.domain.User" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_user (username, password, full_name, role)
+        values (#{username}, #{password}, #{fullName}, #{role})
+    </insert>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.SubmissionAnswerMapper">
+    <resultMap id="answerMap" type="com.my.domain.SubmissionAnswer">
+        <id property="id" column="id" />
+        <result property="submissionId" column="submission_id" />
+        <result property="questionId" column="question_id" />
+        <result property="answerText" column="answer_text" />
+        <result property="selectedOptionIds" column="selected_option_ids" />
+        <result property="scoreAwarded" column="score_awarded" />
+    </resultMap>
+
+    <select id="findBySubmissionId" parameterType="int" resultMap="answerMap">
+        select id, submission_id, question_id, answer_text, selected_option_ids, score_awarded
+        from exam_submission_answer
+        where submission_id = #{submissionId}
+    </select>
+
+    <insert id="insertAnswer" parameterType="com.my.domain.SubmissionAnswer" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_submission_answer (submission_id, question_id, answer_text, selected_option_ids, score_awarded)
+        values (#{submissionId}, #{questionId}, #{answerText}, #{selectedOptionIds}, #{scoreAwarded})
+    </insert>
+</mapper>
