@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.QuestionOptionMapper">
+    <resultMap id="optionMap" type="com.my.domain.QuestionOption">
+        <id property="id" column="id" />
+        <result property="questionId" column="question_id" />
+        <result property="label" column="label" />
+        <result property="content" column="content" />
+        <result property="correct" column="correct" />
+    </resultMap>
+
+    <select id="findByQuestionId" parameterType="int" resultMap="optionMap">
+        select id, question_id, label, content, correct
+        from exam_question_option
+        where question_id = #{questionId}
+        order by label asc
+    </select>
+
+    <insert id="insertOption" parameterType="com.my.domain.QuestionOption" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_question_option (question_id, label, content, correct)
+        values (#{questionId}, #{label}, #{content}, #{correct})
+    </insert>
+</mapper>

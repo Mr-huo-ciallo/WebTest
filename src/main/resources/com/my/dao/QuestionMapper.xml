@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.QuestionMapper">
+    <resultMap id="questionMap" type="com.my.domain.Question">
+        <id property="id" column="id" />
+        <result property="examId" column="exam_id" />
+        <result property="stem" column="stem" />
+        <result property="type" column="type" javaType="com.my.domain.QuestionType" />
+        <result property="score" column="score" />
+        <result property="difficulty" column="difficulty" />
+        <result property="createdBy" column="created_by" />
+        <result property="correctAnswer" column="correct_answer" />
+    </resultMap>
+
+    <select id="findByExamId" parameterType="int" resultMap="questionMap">
+        select id, exam_id, stem, type, score, difficulty, created_by, correct_answer
+        from exam_question
+        where exam_id = #{examId}
+        order by id asc
+    </select>
+
+    <insert id="insertQuestion" parameterType="com.my.domain.Question" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_question (exam_id, stem, type, score, difficulty, created_by, correct_answer, explanation)
+        values (#{examId}, #{stem}, #{type}, #{score}, #{difficulty}, #{createdBy}, #{correctAnswer}, #{explanation})
+    </insert>
+</mapper>

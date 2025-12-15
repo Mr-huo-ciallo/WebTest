@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.ExamMapper">
+    <resultMap id="examMap" type="com.my.domain.Exam">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="description" column="description" />
+        <result property="durationMinutes" column="duration_minutes" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="createdByTeacherId" column="created_by_teacher_id" />
+        <result property="status" column="status" javaType="com.my.domain.ExamStatus" />
+        <result property="totalScore" column="total_score" />
+    </resultMap>
+
+    <select id="findById" parameterType="int" resultMap="examMap">
+        select id, title, description, duration_minutes, start_time, end_time, created_by_teacher_id, status, total_score
+        from exam_exam
+        where id = #{id}
+    </select>
+
+    <select id="findPublished" resultMap="examMap">
+        select id, title, description, duration_minutes, start_time, end_time, created_by_teacher_id, status, total_score
+        from exam_exam
+        where status = 'PUBLISHED'
+        order by start_time desc
+    </select>
+
+    <select id="findByTeacher" parameterType="int" resultMap="examMap">
+        select id, title, description, duration_minutes, start_time, end_time, created_by_teacher_id, status, total_score
+        from exam_exam
+        where created_by_teacher_id = #{teacherId}
+        order by id desc
+    </select>
+
+    <insert id="insertExam" parameterType="com.my.domain.Exam" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_exam (title, description, duration_minutes, start_time, end_time, created_by_teacher_id, status, total_score)
+        values (#{title}, #{description}, #{durationMinutes}, #{startTime}, #{endTime}, #{createdByTeacherId}, #{status}, #{totalScore})
+    </insert>
+</mapper>
